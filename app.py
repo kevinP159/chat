@@ -25,7 +25,14 @@ def get_few_shot_db_chain():
 
     embeddings = HuggingFaceEmbeddings(model_name='sentence-transformers/all-MiniLM-L6-v2')
     to_vectorize = [" ".join(example.values()) for example in few_shots]
-    vectorstore = Chroma.from_texts(to_vectorize, embeddings, metadatas=few_shots)
+    
+    # Configure Chroma to use a persistent directory
+    vectorstore = Chroma.from_texts(
+        to_vectorize, 
+        embeddings, 
+        metadatas=few_shots,
+        persist_directory="chroma_db_dir" # Add this line
+    )
 
     example_selector = SemanticSimilarityExampleSelector(
         vectorstore=vectorstore,
