@@ -1,9 +1,19 @@
+# Streamlit
 streamlit==1.27.0
-langchain==1.0.0
+
+# LangChain core and related packages
+langchain==0.1.129
 langchain-community==0.1.0
 langchain-experimental==0.1.0
+
+# Vector DB and embeddings
 chromadb==0.3.30
 sentence-transformers==2.2.2
+
+# ML frameworks
 torch>=2.0.0
 transformers>=4.30.0
+
+# Google Gemini / LLM
 langchain-google-genai==2.1.10
+
