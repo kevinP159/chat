@@ -8,11 +8,7 @@ from langchain.chains.sql_database.prompt import PROMPT_SUFFIX
 from langchain.prompts.prompt import PromptTemplate
 from langchain_google_genai import ChatGoogleGenerativeAI
 from few_shots import few_shots
-import os
-from dotenv import load_dotenv
 import streamlit as st
-
-load_dotenv()
 
 def get_few_shot_db_chain():
     db = SQLDatabase.from_uri("sqlite:///BranszStore.db", sample_rows_in_table_info=3)
@@ -25,14 +21,7 @@ def get_few_shot_db_chain():
 
     embeddings = HuggingFaceEmbeddings(model_name='sentence-transformers/all-MiniLM-L6-v2')
     to_vectorize = [" ".join(example.values()) for example in few_shots]
-    
-    # Configure Chroma to use a persistent directory
-    vectorstore = Chroma.from_texts(
-        to_vectorize, 
-        embeddings, 
-        metadatas=few_shots,
-        persist_directory="chroma_db_dir" # Add this line
-    )
+    vectorstore = Chroma.from_texts(to_vectorize, embeddings, metadatas=few_shots)
 
     example_selector = SemanticSimilarityExampleSelector(
         vectorstore=vectorstore,
