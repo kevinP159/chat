@@ -1,7 +1,6 @@
 streamlit
-langchain
 langchain-google-genai
-langchain-community
 langchain-experimental
 sentence-transformers
 chromadb
+pysqlite3-binary
